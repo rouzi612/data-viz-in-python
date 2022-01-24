@@ -1,0 +1,18 @@
+def with_hue(ax, feature, Number_of_categories, hue_categories):
+    a = [p.get_height() for p in ax.patches]
+    patch = [p for p in ax.patches]
+    for i in range(Number_of_categories):
+        total = feature.value_counts().values[i]
+        for j in range(hue_categories):
+            percentage = round(a[(j*Number_of_categories + i)]/total,2)
+            x = patch[(j*Number_of_categories + i)].get_x() + patch[(j*Number_of_categories + i)].get_width() / 2 - 0.15
+            y = patch[(j*Number_of_categories + i)].get_y() + patch[(j*Number_of_categories + i)].get_height() 
+            ax.annotate(percentage, (x, y), size = 12)
+
+def without_hue(ax, feature):
+    total = len(feature)
+    for p in ax.patches:
+        percentage = round(p.get_height()/total,2)
+        x = p.get_x() + p.get_width() / 2 - 0.05
+        y = p.get_y() + p.get_height()
+        ax.annotate(percentage, (x, y), size = 10)
